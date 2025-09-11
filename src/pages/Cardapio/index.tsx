@@ -62,14 +62,14 @@ export default function Cardapio() {
     <div className="h-full ">
 
       <div
-        className="bg-cover bg-center h-40 flex items-end"
+        className="bg-cover bg-center h-60 flex items-end"
         style={{
           backgroundImage:
             `url('${imagemBackground}')`,
         }}
       >
-        <div className="p-4 mx-4 bg-opacity-90 bg-yellow-300 rounded-t-3xl">
-          <h1 className="text-3xl font-bold text-white">Configure o Cardápio do dia</h1>
+        <div className="p-4 mx-4 bg-opacity-40 from-yellow-300 bg-gradient-to-t to-yellow-500 rounded-t-3xl">
+          <h1 className="text-4xl font-bold text-white font-bebas">Configure o Cardápio do dia</h1>
           <p className="text-gray-100">Adicione, edite ou remova pratos do cardápio.</p>
         </div>
       </div>
@@ -78,15 +78,15 @@ export default function Cardapio() {
           Adicionar Prato
         </button>
 
-        <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">
-          Remover Prato
-        </button>
-
         <button onClick={() => abrirModalEditar(pratoSelecionado)} className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">
           Editar Prato
         </button>
 
-        <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+        <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
+          Remover Prato
+        </button>
+
+        <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded absolute right-4">
           Atualizar Cardápio
         </button>
 

@@ -12,6 +12,7 @@ export default function ModalPrato({ isOpen, onClose, onSave, pratoEditando }: M
     const [nome, setNome] = useState("");
     const [descricao, setDescricao] = useState("");
     const [preco, setPreco] = useState<number>(0);
+    const [ingredientes, setIngredientes] = useState<string[]>([]);
 
     // Se for edição, preencher os campos com o prato existente
     useEffect(() => {
@@ -42,7 +43,7 @@ export default function ModalPrato({ isOpen, onClose, onSave, pratoEditando }: M
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="bg-white p-6 rounded-2xl shadow-lg w-96">
+            <div className="bg-white p-6 rounded-2xl shadow-lg w-1/2 max-w-4xl">
                 <h2 className="text-xl font-bold mb-4">{pratoEditando ? "Editar Prato" : "Novo Prato"}</h2>
 
                 <input
@@ -57,6 +58,14 @@ export default function ModalPrato({ isOpen, onClose, onSave, pratoEditando }: M
                     value={descricao}
                     onChange={(e) => setDescricao(e.target.value)}
                 />
+
+                <input
+                    className="w-full border p-2 rounded mb-2"
+                    placeholder="Ingredientes (separados por vírgula)"
+                    value={ingredientes.join(", ")}
+                    onChange={(e) => setIngredientes(e.target.value.split(", ").map(ing => ing.trim()))}
+                />
+
                 <input
                     type="number"
                     className="w-full border p-2 rounded mb-2"

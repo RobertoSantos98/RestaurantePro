@@ -12,3 +12,11 @@ body {
   min-height: 100vh;
   width: 100vw;
 }
+
+.font-oswald {
+  font-family: 'Oswald', sans-serif;
+}
+
+.font-bebas {
+  font-family: 'Bebas Neue', sans-serif;
+}

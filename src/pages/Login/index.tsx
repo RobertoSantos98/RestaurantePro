@@ -21,7 +21,7 @@ export default function Login() {
 
             <div className="flex flex-col w-1/2 gap-4 p-8 justify-center items-center">
 
-                <h1 className="text-2xl text-gray-100 font-bold mb-4 ">Entre com seu usuário</h1>
+                <h1 className="text-4xl text-gray-100 font-bold mb-4 font-oswald">Entre com seu usuário</h1>
 
                 <input
                     type="text"
