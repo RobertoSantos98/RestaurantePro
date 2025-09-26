@@ -1,64 +1,77 @@
-import { useState } from "react";
-import type { Prato } from "../Cardapio";
+import { useState, useEffect } from "react";
 import PedidoComponent from "../../components/PedidoComponent";
+import ModalError from "../../components/ModalError";
+import type { Pedido } from "../../types/types";
+import { io } from "socket.io-client";
+import { PedidoService } from "../../services/PedidoService";
 
-export interface Pedido {
-  nome: string;
-  endereco: string;
-  prato: Prato;
-  opcional: string;
-  quantidade: number;
-  valor: number;
-  data: Date;
-  impresso: boolean;
-}
+const socket = io("http://localhost:3000");
 
 export default function Pedidos() {
 
-  const [option, setOption] = useState<string>("Todos");
+  // const [option, setOption] = useState<string>("Todos");
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
-  const [pedidos, setPedidos] = useState<Pedido[]>([
-    {
-      nome: "Mazaroppi",
-      endereco: "Rua A, 123",
-      prato: { id: 1, nome: "Opção 1", preco: 10.00, descricao: "Descrição do prato 1", ingredientes: [{ id: 1, nome: "Ingrediente 1" }, { id: 2, nome: "Ingrediente 2" }] },
-      opcional: "Sem cebola",
-      quantidade: 2,
-      valor: 20.00,
-      data: new Date(),
-      impresso: true
-    },
-    {
-      nome: "João Valis",
-      endereco: "Rua B, 456",
-      prato: { id: 2, nome: "Opção 2", preco: 15.00, descricao: "Descrição do prato 2", ingredientes: [{ id: 3, nome: "Ingrediente 3" }, { id: 4, nome: "Ingrediente 4" }] },
-      opcional: "Sem pimenta",
-      quantidade: 1,
-      valor: 15.00,
-      data: new Date(),
-      impresso: true
-    },
-    {
-      nome: "Joelma Siqueira",
-      endereco: "Rua C, 789",
-      prato: { id: 3, nome: "Opção 3", preco: 20.00, descricao: "Descrição do prato 3", ingredientes: [{ id: 5, nome: "Ingrediente 5" }, { id: 6, nome: "Ingrediente 6" }] },
-      opcional: "Troque a batata-frita por salada",
-      quantidade: 3,
-      valor: 60.00,
-      data: new Date(),
-      impresso: false
-    },
-    {
-      nome: "Maria Oliveira",
-      endereco: "Rua D, 321",
-      prato: { id: 4, nome: "Opção 4", preco: 25.00, descricao: "Descrição do prato 4", ingredientes: [{ id: 7, nome: "Ingrediente 7" }, { id: 8, nome: "Ingrediente 8" }] },
-      opcional: "Sem queijo",
-      quantidade: 2,
-      valor: 50.00,
-      data: new Date(),
-      impresso: false
+  const [pedidos, setPedidos] = useState<Pedido[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const pedidoService = new PedidoService();
+
+    const buscarPedido = async () => {
+      const response = await pedidoService.buscarTodosPedido();
+      // Converte data para Date
+      const pedidosComData = response.map(p => ({
+        ...p,
+        data: new Date(p.data),
+      }));
+
+      // Ordena do mais recente para o mais antigo
+      const pedidosOrdenados = pedidosComData.sort(
+        (a, b) => b.data.getTime() - a.data.getTime()
+      );
+      console.log("Pedidos carregados:", pedidosOrdenados);
+      setPedidos(pedidosOrdenados);
+      setLoading(false);
+    };
+    buscarPedido();
+  }, [])
+
+  useEffect(() => {
+
+    socket.on("connect", () => {
+      console.log("Connectado no Server com o id: " + socket.id);
+    });
+
+    socket.on("novoPedido", (pedido: Pedido) => {
+      console.log("Novo pedido recebido: ", pedido);
+
+      // Converte data para Date
+      const pedidoComData = { ...pedido, data: new Date(pedido.data) };
+
+      setPedidos((prev) => {
+        // adiciona no topo e mantém ordenado do mais recente
+        return [pedidoComData, ...prev].sort((a, b) => b.data.getTime() - a.data.getTime());
+      });
+    });
+
+    socket.on("disconnect", () => {
+      console.log("Desconectado do servidor");
+    });
+
+    return () => {
+      socket.off("connect");
+      socket.off("novoPedido");
+      socket.off("disconnect");
+    };
+  }, []);
+
+  const atualizarPedido = async (id: string, status: string, clienteId: string) => {
+    const pedidoService = new PedidoService();
+    const response = await pedidoService.atualizarPedido(id, status, clienteId);
+    if (response) {
+      setPedidos((prev) => prev.map(p => p.id === Number(id) ? response : p));
     }
-  ]);
+  };
 
   return (
     <div className="ml-8 bg-gray-100 flex">
@@ -74,8 +87,9 @@ export default function Pedidos() {
         </div>
 
         <div className="flex flex-wrap gap-4 justify-center">
+          {loading && <p>Carregando...</p>}
           {pedidos.map((pedido, index) => (
-            <PedidoComponent key={index} pedido={pedido} />
+            <PedidoComponent key={index} pedido={pedido} atualizarPedido={atualizarPedido} />
           ))}
         </div>
       </div>
@@ -91,9 +105,9 @@ export default function Pedidos() {
         <button className="border-b-2 border-red-400 hover:bg-red-500 text-white py-2 w-full">Enviados</button>
       </div>
 
-      <div className="p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 absolute bottom-4 left-1/2 transform -translate-x-1/2 w-11/12 max-w-4xl rounded shadow-md">
-        <p>Esta é uma área de destaque para informações importantes.</p>
-      </div>
+
+      {/* <ModalError message="Esta é uma área de destaque para informações importantes." /> */}
+
     </div>
   );
 }
