@@ -17,6 +17,8 @@ export default function Navbar() {
       <Link to="/pedidos" className="hover:text-2xl hover:text-white transition-all">Pedidos</Link>
       <span className="text-red-400">|</span>
       <Link to="/cardapio" className="hover:text-2xl hover:text-white transition-all">Cardápio</Link>
+      <span className="text-red-400">|</span>
+      <Link to="/admin" className="hover:text-2xl hover:text-white transition-all">Administração</Link>
       {user && (
         <div className="ml-auto flex items-center gap-4">
           <p className="text-red-400">{user.name}</p>

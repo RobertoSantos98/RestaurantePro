@@ -39,7 +39,7 @@ export default function PedidoComponent({ pedido, atualizarPedido }: PedidoCompo
 
 
     return (
-        <div className={`bg-white relative p-4 rounded-2xl shadow mb-4 w-auto sm:w-80 md:w-96 lg:w-1/4 ${pedido.status !== "PENDENTE" ? "" : "border-2 border-red-500"} flex flex-col gap-2 hover:shadow-2xl transition-all`}>
+        <div className={`bg-white relative p-4 rounded-2xl shadow mb-4 w-auto sm:w-80 md:w-96 lg:w-1/4 ${pedido.status !== "PENDENTE" ? "" : "border-2 border-red-500 shadow-md shadow-red-500"} flex flex-col gap-2 hover:shadow-2xl transition-all`}>
             {pedido.status !== "PENDENTE" ? "" : <h1 className="text-red-500 font-bold absolute self-end">NOVO</h1>}
             <h2 className="text-xl font-bold">{pedido.cliente.nome}</h2>
             <p className="text-gray-600">Endereço: {pedido.cliente.numeroTelefone}</p>

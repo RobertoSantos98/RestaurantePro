@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Navbar from "./components/NavBar";
 import Login from "./pages/Login";
 import PrivateRoute from "./components/PrivateRoutes";
+import Admin from "./pages/Admin";
 
 export default function App() {
 
@@ -14,7 +15,7 @@ export default function App() {
   const showLocation = location.pathname !== "/";
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className=" bg-gray-100">
       {/* Navbar simples */}
       {showLocation && ( <Navbar /> )}
 
@@ -38,6 +39,12 @@ export default function App() {
         <Route path="/pedidos" element={
           <PrivateRoute>
             <Pedidos />
+          </PrivateRoute>
+        } />
+
+        <Route path="/admin" element={
+          <PrivateRoute>
+            <Admin />
           </PrivateRoute>
         } />
 
