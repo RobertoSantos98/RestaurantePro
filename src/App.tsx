@@ -15,7 +15,7 @@ export default function App() {
   const showLocation = location.pathname !== "/";
 
   return (
-    <div className=" bg-gray-100">
+    <div className=" min-h-svh bg-gray-100">
       {/* Navbar simples */}
       {showLocation && ( <Navbar /> )}
 

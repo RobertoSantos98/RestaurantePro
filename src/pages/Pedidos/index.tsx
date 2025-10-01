@@ -4,6 +4,7 @@ import ModalError from "../../components/ModalError";
 import type { Pedido } from "../../types/types";
 import { io } from "socket.io-client";
 import { PedidoService } from "../../services/PedidoService";
+import Skeleton from "../../components/Skeleton";
 
 const socket = io("http://localhost:3000");
 
@@ -87,7 +88,7 @@ export default function Pedidos() {
         </div>
 
         <div className="flex flex-wrap gap-4 justify-center">
-          {loading && <p>Carregando...</p>}
+          {loading && <Skeleton className="h-4 w-1/2 mb-2" />}
           {pedidos.map((pedido, index) => (
             <PedidoComponent key={index} pedido={pedido} atualizarPedido={atualizarPedido} />
           ))}
