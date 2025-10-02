@@ -24,10 +24,13 @@ export default function GerenciarPedidos() {
 
 
     return (
-        <div className="bg-white rounded-xl shadow p-4 my-4 h-screen overflow-y-auto">
-            <h1>Gerenciar Pedidos</h1>
+        <div className="bg-white rounded-xl shadow h-screen overflow-y-auto m-4">
+            <div className="bg-red-500 text-white mb-4">
+                <h1 className="p-2 font-bold">Gerenciar Pedidos</h1>
+
+            </div>
             {pedido !== undefined ? (
-                <table className="border-b py-2 w-full">
+                <table className="border-b w-full mx-4 border rounded ">
                     <thead className="border-gray-200">
                         <tr className="bg-gray-300 text-left">
                             <th className="py-2 px-2">Pedido ID</th>

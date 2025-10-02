@@ -13,13 +13,6 @@ export default function Admin() {
     const [chatBotOption, setChatBotOption] = useState<boolean>(false);
     const [contentSelected, setContentSelected] = useState<string>("Visão Geral");
 
-    const stats = [
-        { label: "Pedidos", value: 204, icon: FiActivity },
-        { label: "Clientes", value: 120, icon: FiUser },
-        { label: "Cardápios", value: 12, icon: FiUsers },
-        { label: "Pratos", value: 56, icon: FiLayers },
-    ];
-
     const handleContent = (content: string) => {
         switch(content) {
             case "Visão Geral":
@@ -45,6 +38,10 @@ export default function Admin() {
                     </div>
                     <div>
                         <h2 className="text-lg font-bold p-4">Menu</h2>
+                        
+                        <button onClick={() => setContentSelected("Visão Geral")} className="p-2 w-full hover:bg-red-500 hover:text-white font-bold text-gray-700 transition text-left">
+                            Início
+                        </button>
                         <button onClick={() => setContentSelected("Cardápios")} className="p-2 w-full hover:bg-red-500 hover:text-white font-bold text-gray-700 transition text-left">
                             Cardápios
                         </button>
@@ -76,23 +73,7 @@ export default function Admin() {
                         </button>
 
                     </div>
-
-                    <div className="bg-red-600 w-full py-4 flex flex-row justify-around gap-4">
-                        {stats.map(({ label, value, icon: Icon }) => (
-                            <button
-                                key={label}
-                                className="text-white w-1/5 font-bold text-sm text-left py-6 px-4 rounded bg-red-500 hover:bg-red-700 transition"
-                            >
-                                <div className="flex flex-row gap-2 justify-between text-xl">
-                                    <Icon size={24} />
-                                    {value}
-                                </div>
-                                {label}
-                            </button>
-                        ))}
-                    </div>
-
-                    <div className="p-4">
+                    <div className="">
 
                         {handleContent(contentSelected)}
 
