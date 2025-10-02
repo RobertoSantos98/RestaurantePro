@@ -2,9 +2,9 @@ import { useState } from "react";
 import Footer from "../../components/Footer";
 import { useAuth } from "../../hooks/useAuth";
 import { FiUser, FiActivity, FiUsers, FiLayers } from "react-icons/fi";
-import VisaoGeral from "./VisaoGeral";
-import Gerenciar from "./Gerenciar";
-import GerenciarInteracoes from "./GerenciarInteracoes";
+import VisaoGeral from "./Gerenciar/VisaoGeral";
+import Gerenciar from "./Gerenciar/Gerenciar";
+import GerenciarInteracoes from "./Gerenciar/GerenciarInteracoes";
 
 
 export default function Admin() {

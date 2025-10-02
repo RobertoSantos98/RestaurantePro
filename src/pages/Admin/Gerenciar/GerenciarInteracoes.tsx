@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Skeleton from "../../components/Skeleton";
-import { InteracoesServices } from "../../services/InteracoesServices";
+import Skeleton from "../../../components/Skeleton";
+import { InteracoesServices } from "../../../services/InteracoesServices";
 import { FaTrash } from "react-icons/fa";
 
 interface interacoes {
