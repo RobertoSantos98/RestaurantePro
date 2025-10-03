@@ -64,7 +64,7 @@ export default function Admin() {
                 </div>
 
                 <div className="w-5/6 bg-gray-100 h-screen overflow-y-auto">
-                    <div className="bg-red-600 text-white px-4 flex flex-row items-center gap-4">
+                    <div className="bg-red-600 text-white px-4 flex flex-row items-center gap-4 pb-4">
                         <p className="font-bold">ChatBot:</p>
                         <p className="">{chatBotOption ? 'On' : 'Off'}</p>
 

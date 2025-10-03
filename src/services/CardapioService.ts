@@ -14,4 +14,15 @@ export class CardapioService {
         }
     }
 
+    async buscarCardapio(id: number){
+        try{
+            const response = await axios.get(`${API_URL}/cardapio${id}`,{
+
+            });
+            return response.data
+        } catch(err){
+            console.error("Erro: " + err);
+        }
+    }
+
 }
