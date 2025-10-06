@@ -119,7 +119,7 @@ export default function Pedidos() {
       </div>
 
       {modalOpen && (
-        <ModalEditPedido pedido={null} onClose={() => setModalOpen(false)} podeEditar={false} />
+        <ModalEditPedido pedido={null} onClose={() => setModalOpen(false)} podeEditar={true} />
       )}
 
 

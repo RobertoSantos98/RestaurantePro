@@ -5,6 +5,7 @@ import { FiUser, FiActivity, FiUsers, FiLayers } from "react-icons/fi";
 import VisaoGeral from "./Gerenciar/VisaoGeral";
 import Gerenciar from "./Gerenciar/Gerenciar";
 import GerenciarInteracoes from "./Gerenciar/GerenciarInteracoes";
+import GerenciarCardapio from "./Gerenciar/GerenciarCardapio";
 
 
 export default function Admin() {
@@ -21,6 +22,8 @@ export default function Admin() {
                 return <Gerenciar />;
             case "Interações":
                 return <GerenciarInteracoes />
+            case "Cardápios":
+                return <GerenciarCardapio/>;
         }
     }
 

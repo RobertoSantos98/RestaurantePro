@@ -7,13 +7,18 @@ export const SERVER = "http://localhost:3000";
 export class PedidoService {
     async buscarTodosPedido(): Promise<Pedido[]> {
         try {
-            const listaPedidos = await axios.get<Pedido[]>(`${SERVER}/pedido/`,{
+            const response = await axios.get(`${SERVER}/pedido/`,{
                 headers: {
                     "Accept":"application/json"
                 }
             });
-            console.log("Pedidos recebidos do servidor:", listaPedidos.data);
-        return listaPedidos.data;
+            const lista: Pedido[] = response.data;
+
+            const listaConvertida = lista.map((item) => (
+                {...item,
+                data: new Date(item.data)}
+            ))
+        return listaConvertida;
         } catch (error) {
             console.log("Erro ao buscar pedidos:", error);
             return [];

@@ -12,13 +12,13 @@ export default function Navbar() {
 
   return (
     <nav className="flex gap-4 h-16 bg-red-600 text-red-200 items-center px-8 font-bebas text-xl">
-      <Link to="/home" className="hover:text-2xl hover:text-white transition-all">Home</Link>
+      <Link to="/home" className="hover:text-white transition-all">Home</Link>
       <span className="text-red-400">|</span>
-      <Link to="/pedidos" className="hover:text-2xl hover:text-white transition-all">Pedidos</Link>
+      <Link to="/pedidos" className="hover:text-white transition-all">Pedidos</Link>
       <span className="text-red-400">|</span>
-      <Link to="/cardapio" className="hover:text-2xl hover:text-white transition-all">Cardápio</Link>
+      <Link to="/cardapio" className="hover:text-white transition-all">Cardápio</Link>
       <span className="text-red-400">|</span>
-      <Link to="/admin" className="hover:text-2xl hover:text-white transition-all">Administração</Link>
+      <Link to="/admin" className="hover:text-white transition-all">Administração</Link>
       {user && (
         <div className="ml-auto flex items-center gap-4">
           <p className="text-red-400">{user.name}</p>
