@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import PedidoComponent from "../../components/PedidoComponent";
-// import ModalError from "../../components/ModalError";
 import type { Pedido } from "../../types/types";
 import { io } from "socket.io-client";
 import { PedidoService } from "../../services/PedidoService";
@@ -8,37 +7,39 @@ import Skeleton from "../../components/Skeleton";
 import { FaPlus } from "react-icons/fa";
 
 import ModalEditPedido from "../Admin/Edit/ModalEditPedido";
+import ModalError from "../../components/ModalError";
 
 const socket = io("http://localhost:3000");
 
 export default function Pedidos() {
+  const pedidoService = new PedidoService();
 
   // const [option, setOption] = useState<string>("Todos");
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [pedidos, setPedidos] = useState<Pedido[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [mensagemErro, setMensagemErro]= useState("");
 
+  const [paginaAtual, setPaginaAtual ] = useState(1);
+  const [totalPaginas, setTotalPaginas] = useState();
+  const limite = 12;
+
+  const buscarPedido = async (pagina:number) => {
+    try {
+      const response = await pedidoService.buscarTodosPedido(pagina, limite);
+      setTotalPaginas(response.totalPages);
+      setPedidos(response.data);
+    } catch (error) {
+      setMensagemErro((error as Error).message);
+    }finally{
+      setLoading(false)
+    }
+
+  };
+  
   useEffect(() => {
-    const pedidoService = new PedidoService();
-
-    const buscarPedido = async () => {
-      const response = await pedidoService.buscarTodosPedido();
-      // Converte data para Date
-      const pedidosComData = response.map(p => ({
-        ...p,
-        data: new Date(p.data),
-      }));
-
-      // Ordena do mais recente para o mais antigo
-      const pedidosOrdenados = pedidosComData.sort(
-        (a, b) => b.data.getTime() - a.data.getTime()
-      );
-      console.log("Pedidos carregados:", pedidosOrdenados);
-      setPedidos(pedidosOrdenados);
-      setLoading(false);
-    };
-    buscarPedido();
-  }, [])
+    buscarPedido(paginaAtual);
+  }, [paginaAtual])
 
   useEffect(() => {
 
@@ -78,14 +79,16 @@ export default function Pedidos() {
   };
 
   return (
-    <div className="bg-gray-100 flex">
+    <div className="bg-gray-100 flex flex-col pb-28">
       <div className="w-full">
         <div className="flex justify-between items-center pl-4">
           <h1 className="text-3xl font-bold my-4">Pedidos</h1>
         </div>
 
         <div className="flex flex-wrap gap-4 justify-center">
-          {loading && <Skeleton className="h-20 w-20 mb-2" />}
+          {loading && Array.from({ length: 10}).map((_, index) => (
+              <Skeleton key={index} className="h-60 w-60 mr-4" />
+          ))}
           {pedidos.map((pedido, index) => (
 
               <PedidoComponent key={index} pedido={pedido} atualizarPedido={atualizarPedido}/>
@@ -118,12 +121,42 @@ export default function Pedidos() {
 
       </div>
 
+      {/* Paginação */}
+                <div className="flex justify-center items-center gap-4 py-4">
+                    <button
+                        disabled={paginaAtual === 1}
+                        onClick={() => setPaginaAtual((p) => p - 1)}
+                        className={`px-4 py-2 rounded font-bold ${paginaAtual === 1
+                                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                                : "bg-red-500 text-white hover:bg-red-600"
+                            }`}
+                    >
+                        Anterior
+                    </button>
+
+                    <span className="font-bold">
+                        Página {paginaAtual} de {totalPaginas}
+                    </span>
+
+                    <button
+                        disabled={paginaAtual === totalPaginas}
+                        onClick={() => setPaginaAtual((p) => p + 1)}
+                        className={`px-4 py-2 rounded font-bold ${paginaAtual === totalPaginas
+                                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                                : "bg-red-500 text-white hover:bg-red-600"
+                            }`}
+                    >
+                        Próxima
+                    </button>
+                </div>
+
       {modalOpen && (
         <ModalEditPedido pedido={null} onClose={() => setModalOpen(false)} podeEditar={true} />
       )}
 
-
-      {/* <ModalError message="Esta é uma área de destaque para informações importantes." /> */}
+      {mensagemErro && (
+        <ModalError message={mensagemErro} setMensagemErro={() => setMensagemErro("")} />
+      )}
 
     </div>
   );

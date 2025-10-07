@@ -5,23 +5,28 @@ import type { Pedido } from "../types/types";
 export const SERVER = "http://localhost:3000";
 
 export class PedidoService {
-    async buscarTodosPedido(): Promise<Pedido[]> {
+    async buscarTodosPedido(pagina:number, limite: number) {
         try {
-            const response = await axios.get(`${SERVER}/pedido/`,{
+            const response = await axios.get(`${SERVER}/pedido/${pagina}/${limite}`,{
                 headers: {
                     "Accept":"application/json"
                 }
             });
-            const lista: Pedido[] = response.data;
+            const lista: Pedido[] = response.data.data;
 
             const listaConvertida = lista.map((item) => (
                 {...item,
                 data: new Date(item.data)}
             ))
-        return listaConvertida;
+        return {
+            data: listaConvertida,
+            total: response.data.total,
+            page: response.data.page,
+            totalPages: response.data.totalPages
+        };
+        
         } catch (error) {
-            console.log("Erro ao buscar pedidos:", error);
-            return [];
+            throw new Error((error as Error).message);
         }
     }
 

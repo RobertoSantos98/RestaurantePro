@@ -16,9 +16,9 @@ export interface Cliente {
 
 export interface ItemPedido {
   id: number;
-  nome: string;
   quantidade: number;
   valor: number;
+  prato: Prato;
 }
 
 export interface Pedido {

@@ -117,11 +117,11 @@ export default function ModalEditPedido(props: ModalEditPedidoProps) {
                                 </thead>
                                 {formData.itens.map((item, index) => (
                                     <tbody>
-                                        <tr className="hover:bg-gray-300">
-                                            <td><input disabled={!props.podeEditar} key={index} type="text" value={item.id} className="hover:bg-gray-200 form-input p-2 border w-full" /></td>
-                                            <td><input disabled={!props.podeEditar} key={index} type="text" value={item.nome} className="hover:bg-gray-200 form-input p-2 border w-full" /></td>
-                                            <td><input disabled={!props.podeEditar} key={index} type="text" value={item.quantidade} className="hover:bg-gray-200 form-input p-2 border w-full" /></td>
-                                            <td><input disabled={!props.podeEditar} key={index} type="text" value={item.valor} className="hover:bg-gray-200 form-input p-2 border w-full" /></td>
+                                        <tr className="hover:bg-gray-300" key={index}>
+                                            <td><input disabled={!props.podeEditar} type="text" value={item.id} className="hover:bg-gray-200 form-input p-2 border w-full" /></td>
+                                            <td><input disabled={!props.podeEditar} type="text" value={item.prato.nome} className="hover:bg-gray-200 form-input p-2 border w-full" /></td>
+                                            <td><input disabled={!props.podeEditar} type="text" value={item.quantidade} className="hover:bg-gray-200 form-input p-2 border w-full" /></td>
+                                            <td><input disabled={!props.podeEditar} type="text" value={item.prato.valor} className="hover:bg-gray-200 form-input p-2 border w-full" /></td>
                                         </tr>
                                     </tbody>
                                 ))

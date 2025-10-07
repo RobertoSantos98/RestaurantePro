@@ -29,8 +29,8 @@ export default function ModalEditCardapio(props: ModalEditCardapioProps) {
     }, [props.cardapio])
 
     return (
-        <div className="fixed bg-black flex-1 bg-opacity-50 flex inset-0 justify-center items-center">
-            <div className="bg-white w-4/5 h-4/5 rounded-xl">
+        <div className="fixed bg-black bg-opacity-50 flex inset-0 justify-center items-center">
+            <div className="bg-white w-4/5 h-4/5 flex flex-col rounded-xl">
                 <div className="bg-red-600 rounded-t-xl p-4 text-white font-bold justify-between flex items-center">
                     <h1>Editar Cardápio</h1>
                     <button onClick={props.onClose} className="hover:bg-red-700 rounded-full p-2">
@@ -39,7 +39,7 @@ export default function ModalEditCardapio(props: ModalEditCardapioProps) {
                 </div>
 
                 <div className="overflow-y-auto">
-                    <div className="p-4">
+                    <div className="p-4 flex flex-col">
 
                         <div className="border rounded p-4 flex flex-col mb-4">
                             {props.cardapio && (<label className="mb-4">ID:
@@ -54,24 +54,35 @@ export default function ModalEditCardapio(props: ModalEditCardapioProps) {
                         </div>
                         <div className="border mb-4">
                             <table className="w-full">
-                                <tr className="bg-gray-300 text-left">
-                                    <th className="p-2">ID</th>
-                                    <th className="p-2">Nome</th>
-                                    <th className="p-2">Valor</th>
-                                    <th className="p-2">Descrição</th>
-                                </tr>
-                                {formData.pratos.map((item, index) => (
-                                    <tr key={index} className="hover:bg-gray-100 border-b">
-                                        <td className="p-2">{item.id}</td>
-                                        <td className="p-2">{item.nome}</td>
-                                        <td className="p-2">{item.valor}</td>
-                                        <td className="p-2">{item.descricao}</td>
+                                <thead>
+                                    <tr className="bg-gray-300 text-left">
+                                        <th className="p-2">ID</th>
+                                        <th className="p-2">Nome</th>
+                                        <th className="p-2">Valor</th>
+                                        <th className="p-2">Descrição</th>
                                     </tr>
-                                ))}
+                                </thead>
+                                <tbody>
+                                    {formData.pratos.map((item, index) => (
+                                        <tr key={index} className="hover:bg-gray-100 border-b">
+                                            <td className="p-2">{item.id}</td>
+                                            <td className="p-2">{item.nome}</td>
+                                            <td className="p-2">{item.valor}</td>
+                                            <td className="p-2">{item.descricao}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
                             </table>
                         </div>
 
+                    {!props.cardapio && (
+                        <button className="bg-red-500 hover:bg-red-600 p-2 rounded text-white font-bold m-4 self-end shadow-md">Criar Cardápio</button>
+                    )}
+                    {props.cardapio && props.podeEditar && (
+                        <button className="bg-green-500 hover:bg-green-600 p-2 rounded font-bold self-end m-4 text-white border shadow border-gray-500">Editar Cardápio</button>
+                    )}
                     </div>
+
                 </div>
             </div>
         </div>
