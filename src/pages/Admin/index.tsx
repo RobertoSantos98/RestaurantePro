@@ -6,6 +6,7 @@ import VisaoGeral from "./Gerenciar/VisaoGeral";
 import Gerenciar from "./Gerenciar/Gerenciar";
 import GerenciarInteracoes from "./Gerenciar/GerenciarInteracoes";
 import GerenciarCardapio from "./Gerenciar/GerenciarCardapio";
+import GerenciarPratos from "./Gerenciar/GerenciarPratos";
 
 
 export default function Admin() {
@@ -24,6 +25,12 @@ export default function Admin() {
                 return <GerenciarInteracoes />
             case "Cardápios":
                 return <GerenciarCardapio/>;
+            case "Pratos":
+                return <GerenciarPratos/>
+            
+                
+            default:
+                return <VisaoGeral/>
         }
     }
 

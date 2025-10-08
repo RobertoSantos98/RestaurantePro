@@ -109,7 +109,6 @@ export default function ModalEditPedido(props: ModalEditPedidoProps) {
                             <table className="w-full rounded">
                                 <thead className="text-left bg-gray-400">
                                     <tr>
-                                        <th className="p-2">ID</th>
                                         <th className="p-2">Nome</th>
                                         <th className="p-2">Quantidade</th>
                                         <th className="p-2">Valor</th>
@@ -118,10 +117,9 @@ export default function ModalEditPedido(props: ModalEditPedidoProps) {
                                 {formData.itens.map((item, index) => (
                                     <tbody>
                                         <tr className="hover:bg-gray-300" key={index}>
-                                            <td><input disabled={!props.podeEditar} type="text" value={item.id} className="hover:bg-gray-200 form-input p-2 border w-full" /></td>
                                             <td><input disabled={!props.podeEditar} type="text" value={item.prato.nome} className="hover:bg-gray-200 form-input p-2 border w-full" /></td>
                                             <td><input disabled={!props.podeEditar} type="text" value={item.quantidade} className="hover:bg-gray-200 form-input p-2 border w-full" /></td>
-                                            <td><input disabled={!props.podeEditar} type="text" value={item.prato.valor} className="hover:bg-gray-200 form-input p-2 border w-full" /></td>
+                                            <td><input disabled={!props.podeEditar} type="text" value={`R$ ${item.prato.valor}`} className="hover:bg-gray-200 form-input p-2 border w-full" /></td>
                                         </tr>
                                     </tbody>
                                 ))
