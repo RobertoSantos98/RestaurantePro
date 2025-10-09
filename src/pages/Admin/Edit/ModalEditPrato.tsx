@@ -17,6 +17,12 @@ export default function ModalEditPrato(props: ModalEditPratoProps) {
         nome: "Nada",
         valor: 0,
         idCardapio: 0,
+        ingredientes: [
+            {
+                pratoId: 0,
+                ingredientesId: 0
+            }
+        ]
     });
 
     const buscarPrato = async (id: number) => {

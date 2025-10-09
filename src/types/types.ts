@@ -44,4 +44,17 @@ export interface Prato {
   nome: string;
   valor: number;
   idCardapio: number;
+  ingredientes: PratoIngredientes[];
+}
+
+export interface PratoIngredientes {
+  pratoId: number;
+  ingredientesId: number
+}
+
+export interface Ingredientes{
+  id: number;
+  nome: string;
+  quantidade: number;
+  pratos: PratoIngredientes[];
 }

@@ -38,7 +38,7 @@ export default function GerenciarPratos() {
                 <div className="bg-red-500 text-white rounded-t-xl">
                     <div className="flex justify-between items-center p-2">
                         <h1 className="font-bold">Gerenciar Pratos</h1>
-                        <button className="bg-yellow-300 hover:bg-yellow-400 p-2 font-bold rounded border ">
+                        <button onClick={()=> {setModalOpen(true); setPratoEditando(undefined)}} className="bg-yellow-300 hover:bg-yellow-400 p-2 font-bold rounded border ">
                             Adicionar Prato
                         </button>
                     </div>
@@ -57,7 +57,7 @@ export default function GerenciarPratos() {
                             </thead>
                             <tbody>
                                 {pratos?.map((item, index) => (
-                                    <tr onClick={() => setPratoEditando(item)} className="hover:bg-gray-100" key={index}>
+                                    <tr onClick={() => {setPratoEditando(item); setModalOpen(true)}} className="hover:bg-gray-100" key={index}>
                                         <td className="p-2">{item.id}</td>
                                         <td className="p-2">{item.nome}</td>
                                         <td className="p-2">{item.valor}</td>
@@ -99,7 +99,7 @@ export default function GerenciarPratos() {
             </div>
 
             {modalOpen && (
-                <ModalEditPrato idPrato={2} podeEditar={true} onClose={()=>setModalOpen(false)} />
+                <ModalEditPrato idPrato={pratoEditando?.id} podeEditar={true} onClose={()=>setModalOpen(false)} />
             )}
 
             {message && (

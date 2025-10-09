@@ -7,6 +7,7 @@ import Gerenciar from "./Gerenciar/Gerenciar";
 import GerenciarInteracoes from "./Gerenciar/GerenciarInteracoes";
 import GerenciarCardapio from "./Gerenciar/GerenciarCardapio";
 import GerenciarPratos from "./Gerenciar/GerenciarPratos";
+import Estoque from "./Gerenciar/Estoque";
 
 
 export default function Admin() {
@@ -27,7 +28,8 @@ export default function Admin() {
                 return <GerenciarCardapio/>;
             case "Pratos":
                 return <GerenciarPratos/>
-            
+            case "Estoque":
+                return <Estoque/>
                 
             default:
                 return <VisaoGeral/>
@@ -69,6 +71,9 @@ export default function Admin() {
                         </button>
                         <button onClick={() => setContentSelected("Interações")} className="p-2 w-full hover:bg-red-500 hover:text-white font-bold text-gray-700 transition text-left">
                             Interações
+                        </button>
+                        <button onClick={() => setContentSelected("Estoque")} className="p-2 w-full hover:bg-red-500 hover:text-white font-bold text-gray-700 transition text-left">
+                            Estoque
                         </button>
                     </div>
                 </div>
